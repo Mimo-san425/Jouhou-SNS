@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>SNS判断ゲーム</title>
+<style>
+body{
+  margin:0;
+  font-family:"UD デジタル教科書体","Yu Gothic",sans-serif;
+  background:#fff6c7;
+  text-align:center;
+}
+h1{font-size:34px;margin:14px;}
+button{
+  font-family:inherit;
+  font-size:30px;
+  padding:16px 28px;
+  margin:8px;
+  border:0;
+  border-radius:18px;
+  color:white;
+}
+.mainCard{
+  background:white;
+  border:6px solid #ddd;
+  border-radius:28px;
+  width:86%;
+  max-width:900px;
+  margin:20px auto;
+  padding:28px;
+  box-shadow:0 5px 14px #9996;
+}
+.pic{font-size:110px;margin:10px;}
+.question{
+  font-size:36px;
+  font-weight:bold;
+  margin:18px;
+}
+.good{background:#178bd3;}
+.unknown{background:#d6a900;}
+.bad{background:#d7375f;}
+.next{background:#333;}
+.selected{
+  font-size:34px;
+  font-weight:bold;
+  margin:16px;
+}
+#summary,#ruleScreen{display:none;padding:18px;}
+.summaryBox,.ruleBox,#myRule{
+  background:white;
+  border:5px solid #ddd;
+  border-radius:22px;
+  padding:18px;
+  margin:14px auto;
+  max-width:900px;
+  font-size:28px;
+  text-align:left;
+}
+.ruleBox h2{font-size:30px;margin:0 0 10px;}
+.choice{
+  display:block;
+  background:#f4f4f4;
+  border:4px solid #ddd;
+  border-radius:18px;
+  padding:16px;
+  margin:10px 0;
+  font-size:28px;
+}
+.choice input{
+  transform:scale(1.7);
+  margin-right:14px;
+}
+</style>
+</head>
+<body>
+
+<div id="gameScreen">
+  <h1>全員が見られるSNSに公開していい？</h1>
+
+  <div class="mainCard">
+    <div id="count" style="font-size:26px;"></div>
+    <div class="pic" id="pic"></div>
+    <div class="question" id="text"></div>
+
+    <button class="good" onclick="answer('良い')">良い</button>
+    <button class="unknown" onclick="answer('わからない')">わからない</button>
+    <button class="bad" onclick="answer('ダメ')">ダメ</button>
+
+    <div class="selected" id="selected">まだ選んでいません</div>
+
+    <button class="next" onclick="nextCard()">次へ</button>
+  </div>
+</div>
+
+<div id="summary">
+  <h1>考えたことを確認しよう</h1>
+  <div class="summaryBox" id="summaryList"></div>
+  <button class="next" onclick="showRuleScreen()">自分ルールへ</button>
+  <button class="next" onclick="restart()">もう一回</button>
+</div>
+
+<div id="ruleScreen">
+  <h1>自分ルールを選ぼう</h1>
+  <div id="ruleQuestions"></div>
+  <button class="next" onclick="showMyRule()">自分ルールを表示</button>
+  <button class="next" onclick="restart()">最初にもどる</button>
+  <div id="myRule"></div>
+</div>
+
+<script>
+const cards=[
+  ["🍰","自分で作ったケーキ"],
+  ["👥","友だちと一緒に撮った写真"],
+  ["🏯","旅行で撮った風景の写真"],
+  ["✉️","住所が写った写真"],
+  ["🏠","自分の家が写った写真"],
+  ["📸","人をこっそり撮った写真"]
+];
+
+const rules=[
+  ["人の顔が写っていたら？",["相手に聞いてからにする","そのまま公開する","おもしろければ公開する"]],
+  ["住所や学校名が写っていたら？",["公開しない","少しなら公開する","気にせず公開する"]],
+  ["友だちがいやがりそうなら？",["公開しない","あとで消せばよい","笑えるなら公開する"]],
+  ["迷ったときは？",["先生や家族に相談する","急いで公開する","自分だけで決める"]],
+  ["公開する前に？",["人を傷つけないか、個人情報がないか確認する","いいねが増えるかだけ考える","何も考えない"]]
+];
+
+let now=0;
+let answers=Array(cards.length).fill("未選択");
+
+function showCard(){
+  document.getElementById("count").textContent=(now+1)+" / "+cards.length;
+  document.getElementById("pic").textContent=cards[now][0];
+  document.getElementById("text").textContent=cards[now][1];
+  document.getElementById("selected").textContent=
+    answers[now]==="未選択" ? "まだ選んでいません" : "選んだもの： "+answers[now];
+}
+
+function answer(a){
+  answers[now]=a;
+  document.getElementById("selected").textContent="選んだもの： "+a;
+}
+
+function nextCard(){
+  if(now<cards.length-1){
+    now++;
+    showCard();
+  }else{
+    showSummary();
+  }
+}
+
+function showSummary(){
+  document.getElementById("gameScreen").style.display="none";
+  document.getElementById("summary").style.display="block";
+  let html="";
+  cards.forEach((c,i)=>{
+    html+=`・${c[1]} → <b>${answers[i]}</b><br>`;
+  });
+  document.getElementById("summaryList").innerHTML=html;
+}
+
+function showRuleScreen(){
+  document.getElementById("summary").style.display="none";
+  document.getElementById("ruleScreen").style.display="block";
+  const area=document.getElementById("ruleQuestions");
+  area.innerHTML="";
+  rules.forEach((r,i)=>{
+    let html=`<div class="ruleBox"><h2>${i+1}. ${r[0]}</h2>`;
+    r[1].forEach(choice=>{
+      html+=`<label class="choice"><input type="radio" name="rule${i}" value="${choice}">${choice}</label>`;
+    });
+    html+=`</div>`;
+    area.innerHTML+=html;
+  });
+}
+
+function showMyRule(){
+  let html="<b>わたしの自分ルール</b><br>";
+  rules.forEach((r,i)=>{
+    const checked=document.querySelector(`input[name="rule${i}"]:checked`);
+    html+="・"+(checked ? checked.value : "まだ選んでいません")+"<br>";
+  });
+  document.getElementById("myRule").innerHTML=html;
+}
+
+function restart(){
+  now=0;
+  answers=Array(cards.length).fill("未選択");
+  document.getElementById("gameScreen").style.display="block";
+  document.getElementById("summary").style.display="none";
+  document.getElementById("ruleScreen").style.display="none";
+  document.getElementById("myRule").innerHTML="";
+  showCard();
+}
+
+showCard();
+</script>
+
+</body>
+</html>

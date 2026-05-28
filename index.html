@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>SNS判断ゲーム</title>
+<title><ruby>SNS<rt>エスエヌエス</rt></ruby><ruby>判断<rt>はんだん</rt></ruby><ruby>ゲーム<rt>げーむ</rt></ruby></title>
 <style>
 body{
   margin:0;
@@ -71,59 +71,107 @@ button{
   transform:scale(1.7);
   margin-right:14px;
 }
+
+/* ふりがな見やすく */
+ruby{ ruby-position: over; }
+rt{
+  font-size:0.55em;
+  letter-spacing:0.02em;
+}
 </style>
 </head>
 <body>
 
 <div id="gameScreen">
-  <h1>全員が見られるSNSに公開していい？</h1>
+  <h1>
+    <ruby>全員<rt>ぜんいん</rt></ruby>が
+    <ruby>見<rt>み</rt></ruby>られる
+    <ruby>SNS<rt>エスエヌエス</rt></ruby>に
+    <ruby>公開<rt>こうかい</rt></ruby>していい？
+  </h1>
 
   <div class="mainCard">
     <div id="count" style="font-size:26px;"></div>
     <div class="pic" id="pic"></div>
     <div class="question" id="text"></div>
 
-    <button class="good" onclick="answer('良い')">良い</button>
+    <button class="good" onclick="answer('良い')"><ruby>良<rt>よ</rt></ruby>い</button>
     <button class="unknown" onclick="answer('わからない')">わからない</button>
     <button class="bad" onclick="answer('ダメ')">ダメ</button>
 
-    <div class="selected" id="selected">まだ選んでいません</div>
+    <div class="selected" id="selected">
+      まだ<ruby>選<rt>えら</rt></ruby>んでいません
+    </div>
 
-    <button class="next" onclick="nextCard()">次へ</button>
+    <button class="next" onclick="nextCard()"><ruby>次<rt>つぎ</rt></ruby>へ</button>
   </div>
 </div>
 
 <div id="summary">
-  <h1>考えたことを確認しよう</h1>
+  <h1>
+    <ruby>考<rt>かんが</rt></ruby>えたことを
+    <ruby>確認<rt>かくにん</rt></ruby>しよう
+  </h1>
   <div class="summaryBox" id="summaryList"></div>
-  <button class="next" onclick="showRuleScreen()">自分ルールへ</button>
-  <button class="next" onclick="restart()">もう一回</button>
+  <button class="next" onclick="showRuleScreen()">
+    <ruby>自分<rt>じぶん</rt></ruby>ルールへ
+  </button>
+  <button class="next" onclick="restart()">
+    もう<ruby>一回<rt>いっかい</rt></ruby>
+  </button>
 </div>
 
 <div id="ruleScreen">
-  <h1>自分ルールを選ぼう</h1>
+  <h1>
+    <ruby>自分<rt>じぶん</rt></ruby>ルールを
+    <ruby>選<rt>えら</rt></ruby>ぼう
+  </h1>
   <div id="ruleQuestions"></div>
-  <button class="next" onclick="showMyRule()">自分ルールを表示</button>
-  <button class="next" onclick="restart()">最初にもどる</button>
+  <button class="next" onclick="showMyRule()">
+    <ruby>自分<rt>じぶん</rt></ruby>ルールを<ruby>表示<rt>ひょうじ</rt></ruby>
+  </button>
+  <button class="next" onclick="restart()">
+    <ruby>最初<rt>さいしょ</rt></ruby>にもどる
+  </button>
   <div id="myRule"></div>
 </div>
 
 <script>
 const cards=[
-  ["🍰","自分で作ったケーキ"],
-  ["👥","友だちと一緒に撮った写真"],
-  ["🏯","旅行で撮った風景の写真"],
-  ["✉️","住所が写った写真"],
-  ["🏠","自分の家が写った写真"],
-  ["📸","人をこっそり撮った写真"]
+  ["🍰","<ruby>自分<rt>じぶん</rt></ruby>で<ruby>作<rt>つく</rt></ruby>ったケーキ"],
+  ["👥","<ruby>友<rt>とも</rt></ruby>だちと<ruby>一緒<rt>いっしょ</rt></ruby>に<ruby>撮<rt>と</rt></ruby>った<ruby>写真<rt>しゃしん</rt></ruby>"],
+  ["🏯","<ruby>旅行<rt>りょこう</rt></ruby>で<ruby>撮<rt>と</rt></ruby>った<ruby>風景<rt>ふうけい</rt></ruby>の<ruby>写真<rt>しゃしん</rt></ruby>"],
+  ["✉️","<ruby>住所<rt>じゅうしょ</rt></ruby>が<ruby>写<rt>うつ</rt></ruby>った<ruby>写真<rt>しゃしん</rt></ruby>"],
+  ["🏠","<ruby>自分<rt>じぶん</rt></ruby>の<ruby>家<rt>いえ</rt></ruby>が<ruby>写<rt>うつ</rt></ruby>った<ruby>写真<rt>しゃしん</rt></ruby>"],
+  ["📸","<ruby>人<rt>ひと</rt></ruby>をこっそり<ruby>撮<rt>と</rt></ruby>った<ruby>写真<rt>しゃしん</rt></ruby>"]
 ];
 
 const rules=[
-  ["人の顔が写っていたら？",["相手に聞いてからにする","そのまま公開する","おもしろければ公開する"]],
-  ["住所や学校名が写っていたら？",["公開しない","少しなら公開する","気にせず公開する"]],
-  ["友だちがいやがりそうなら？",["公開しない","あとで消せばよい","笑えるなら公開する"]],
-  ["迷ったときは？",["先生や家族に相談する","急いで公開する","自分だけで決める"]],
-  ["公開する前に？",["人を傷つけないか、個人情報がないか確認する","いいねが増えるかだけ考える","何も考えない"]]
+  ["<ruby>人<rt>ひと</rt></ruby>の<ruby>顔<rt>かお</rt></ruby>が<ruby>写<rt>うつ</rt></ruby>っていたら？",[
+    "<ruby>相手<rt>あいて</rt></ruby>に<ruby>聞<rt>き</rt></ruby>いてからにする",
+    "そのまま<ruby>公開<rt>こうかい</rt></ruby>する",
+    "おもしろければ<ruby>公開<rt>こうかい</rt></ruby>する"
+  ]],
+  ["<ruby>住所<rt>じゅうしょ</rt></ruby>や<ruby>学校名<rt>がっこうめい</rt></ruby>が<ruby>写<rt>うつ</rt></ruby>っていたら？",[
+    "<ruby>公開<rt>こうかい</rt></ruby>しない",
+    "<ruby>少<rt>すこ</rt></ruby>しなら<ruby>公開<rt>こうかい</rt></ruby>する",
+    "<ruby>気<rt>き</rt></ruby>にせず<ruby>公開<rt>こうかい</rt></ruby>する"
+  ]],
+  ["<ruby>友<rt>とも</rt></ruby>だちがいやがりそうなら？",[
+    "<ruby>公開<rt>こうかい</rt></ruby>しない",
+    "あとで<ruby>消<rt>け</rt></ruby>せばよい",
+    "<ruby>笑<rt>わら</rt></ruby>えるなら<ruby>公開<rt>こうかい</rt></ruby>する"
+  ]],
+  ["<ruby>迷<rt>まよ</rt></ruby>ったときは？",[
+    "<ruby>先生<rt>せんせい</rt></ruby>や<ruby>家族<rt>かぞく</rt></ruby>に<ruby>相談<rt>そうだん</rt></ruby>する",
+    "<ruby>急<rt>いそ</rt></ruby>いで<ruby>公開<rt>こうかい</rt></ruby>する",
+    "<ruby>自分<rt>じぶん</rt></ruby>だけで<ruby>決<rt>き</rt></ruby>める"
+  ]],
+  ["<ruby>公開<rt>こうかい</rt></ruby>する<ruby>前<rt>まえ</rt></ruby>に？",[
+    "<ruby>人<rt>ひと</rt></ruby>を<ruby>傷<rt>きず</rt></ruby>つけないか、<ruby>個人情報<rt>こじんじょうほう</rt></ruby>がないか<ruby>確認<rt>かくにん</rt></ruby>する",
+    "いいねが<ruby>増<rt>ふ</rt></ruby>えるかだけ<ruby>考<rt>かんが</rt></ruby>える",
+    "<ruby>何<rt>なに</rt></ruby>も<ruby>考<rt>かんが</rt></ruby>えない"
+  ]]
 ];
 
 let now=0;
@@ -132,14 +180,16 @@ let answers=Array(cards.length).fill("未選択");
 function showCard(){
   document.getElementById("count").textContent=(now+1)+" / "+cards.length;
   document.getElementById("pic").textContent=cards[now][0];
-  document.getElementById("text").textContent=cards[now][1];
-  document.getElementById("selected").textContent=
-    answers[now]==="未選択" ? "まだ選んでいません" : "選んだもの： "+answers[now];
+  document.getElementById("text").innerHTML=cards[now][1];
+  document.getElementById("selected").innerHTML=
+    answers[now]==="未選択"
+      ? "まだ<ruby>選<rt>えら</rt></ruby>んでいません"
+      : "<ruby>選<rt>えら</rt></ruby>んだもの： "+answers[now];
 }
 
 function answer(a){
   answers[now]=a;
-  document.getElementById("selected").textContent="選んだもの： "+a;
+  document.getElementById("selected").innerHTML="<ruby>選<rt>えら</rt></ruby>んだもの： "+a;
 }
 
 function nextCard(){
@@ -156,7 +206,7 @@ function showSummary(){
   document.getElementById("summary").style.display="block";
   let html="";
   cards.forEach((c,i)=>{
-    html+=`・${c[1]} → <b>${answers[i]}</b><br>`;
+    html+=`・${stripRuby(c[1])} → <b>${answers[i]}</b><br>`;
   });
   document.getElementById("summaryList").innerHTML=html;
 }
@@ -169,7 +219,7 @@ function showRuleScreen(){
   rules.forEach((r,i)=>{
     let html=`<div class="ruleBox"><h2>${i+1}. ${r[0]}</h2>`;
     r[1].forEach(choice=>{
-      html+=`<label class="choice"><input type="radio" name="rule${i}" value="${choice}">${choice}</label>`;
+      html+=`<label class="choice"><input type="radio" name="rule${i}" value="${escapeHtml(choice)}">${choice}</label>`;
     });
     html+=`</div>`;
     area.innerHTML+=html;
@@ -177,10 +227,10 @@ function showRuleScreen(){
 }
 
 function showMyRule(){
-  let html="<b>わたしの自分ルール</b><br>";
+  let html="<b>わたしの<ruby>自分<rt>じぶん</rt></ruby>ルール</b><br>";
   rules.forEach((r,i)=>{
     const checked=document.querySelector(`input[name="rule${i}"]:checked`);
-    html+="・"+(checked ? checked.value : "まだ選んでいません")+"<br>";
+    html+="・"+(checked ? checked.value : "まだ<ruby>選<rt>えら</rt></ruby>んでいません")+"<br>";
   });
   document.getElementById("myRule").innerHTML=html;
 }
@@ -193,6 +243,16 @@ function restart(){
   document.getElementById("ruleScreen").style.display="none";
   document.getElementById("myRule").innerHTML="";
   showCard();
+}
+
+/* まとめ表示用：rubyを外して文字だけにする */
+function stripRuby(html){
+  return html.replace(/<rt>.*?<\/rt>/g,"").replace(/<\/?ruby>/g,"");
+}
+
+/* ラジオのvalueに入れるため最低限エスケープ */
+function escapeHtml(str){
+  return str.replaceAll('"','&quot;');
 }
 
 showCard();

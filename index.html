@@ -5,79 +5,80 @@
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title><ruby>SNS<rt>エスエヌエス</rt></ruby><ruby>判断<rt>はんだん</rt></ruby><ruby>ゲーム<rt>げーむ</rt></ruby></title>
 <style>
-body{
-  margin:0;
-  font-family:"UD デジタル教科書体","Yu Gothic",sans-serif;
-  background:#fff6c7;
-  text-align:center;
-}
-h1{font-size:34px;margin:14px;}
-button{
-  font-family:inherit;
-  font-size:30px;
-  padding:16px 28px;
-  margin:8px;
-  border:0;
-  border-radius:18px;
-  color:white;
-}
-.mainCard{
-  background:white;
-  border:6px solid #ddd;
-  border-radius:28px;
-  width:86%;
-  max-width:900px;
-  margin:20px auto;
-  padding:28px;
-  box-shadow:0 5px 14px #9996;
-}
-.pic{font-size:110px;margin:10px;}
-.question{
-  font-size:36px;
-  font-weight:bold;
-  margin:18px;
-}
-.good{background:#178bd3;}
-.unknown{background:#d6a900;}
-.bad{background:#d7375f;}
-.next{background:#333;}
-.selected{
-  font-size:34px;
-  font-weight:bold;
-  margin:16px;
-}
-#summary,#ruleScreen{display:none;padding:18px;}
-.summaryBox,.ruleBox,#myRule{
-  background:white;
-  border:5px solid #ddd;
-  border-radius:22px;
-  padding:18px;
-  margin:14px auto;
-  max-width:900px;
-  font-size:28px;
-  text-align:left;
-}
-.ruleBox h2{font-size:30px;margin:0 0 10px;}
-.choice{
-  display:block;
-  background:#f4f4f4;
-  border:4px solid #ddd;
-  border-radius:18px;
-  padding:16px;
-  margin:10px 0;
-  font-size:28px;
-}
-.choice input{
-  transform:scale(1.7);
-  margin-right:14px;
-}
+  body{
+    margin:0;
+    font-family:"UD デジタル教科書体","Yu Gothic",sans-serif;
+    background:#fff6c7;
+    text-align:center;
+  }
+  h1{font-size:34px;margin:14px;}
+  button{
+    font-family:inherit;
+    font-size:30px;
+    padding:16px 28px;
+    margin:8px;
+    border:0;
+    border-radius:18px;
+    color:white;
+    cursor:pointer;
+  }
+  .mainCard{
+    background:white;
+    border:6px solid #ddd;
+    border-radius:28px;
+    width:86%;
+    max-width:900px;
+    margin:20px auto;
+    padding:28px;
+    box-shadow:0 5px 14px #9996;
+  }
+  .pic{font-size:110px;margin:10px;}
+  .question{
+    font-size:36px;
+    font-weight:bold;
+    margin:18px;
+  }
+  .good{background:#178bd3;}
+  .unknown{background:#d6a900;}
+  .bad{background:#d7375f;}
+  .next{background:#333;}
+  .selected{
+    font-size:34px;
+    font-weight:bold;
+    margin:16px;
+  }
+  #summary,#ruleScreen{display:none;padding:18px;}
+  .summaryBox,.ruleBox,#myRule{
+    background:white;
+    border:5px solid #ddd;
+    border-radius:22px;
+    padding:18px;
+    margin:14px auto;
+    max-width:900px;
+    font-size:28px;
+    text-align:left;
+  }
+  .ruleBox h2{font-size:30px;margin:0 0 10px;}
+  .choice{
+    display:block;
+    background:#f4f4f4;
+    border:4px solid #ddd;
+    border-radius:18px;
+    padding:16px;
+    margin:10px 0;
+    font-size:28px;
+  }
+  .choice input{
+    transform:scale(1.7);
+    margin-right:14px;
+  }
 
-/* ふりがな見やすく */
-ruby{ ruby-position: over; }
-rt{
-  font-size:0.55em;
-  letter-spacing:0.02em;
-}
+  /* ふりがな見やすく */
+  ruby{ ruby-position: over; }
+  rt{
+    font-size:0.55em;
+    letter-spacing:0.02em;
+  }
 </style>
 </head>
 <body>
@@ -148,9 +149,9 @@ const cards=[
 
 const rules=[
   ["<ruby>友達<rt>ともだち</rt></ruby>の<ruby>顔<rt>かお</rt></ruby>が<ruby>写<rt>うつ</rt></ruby>っていたら？",[
-    "<ruby>とりあえず</ruby><ruby>公開<rt>こうかい</rt></ruby>しない
-    "そのまま<ruby>公開<rt>こうかい</rt></ruby>する",
-    "おもしろければ<ruby>公開<rt>こうかい</rt></ruby>する"
+    "<ruby>相手<rt>あいて</rt></ruby>に<ruby>聞<rt>き</rt></ruby>いてからにする",
+    "とりあえず<ruby>公開<rt>こうかい</rt></ruby>しない",
+    "そのまま<ruby>公開<rt>こうかい</rt></ruby>する"
   ]],
   ["<ruby>住所<rt>じゅうしょ</rt></ruby>や<ruby>学校名<rt>がっこうめい</rt></ruby>が<ruby>写<rt>うつ</rt></ruby>っていたら？",[
     "<ruby>公開<rt>こうかい</rt></ruby>しない",
@@ -164,7 +165,7 @@ const rules=[
   ]],
   ["<ruby>迷<rt>まよ</rt></ruby>ったときは？",[
     "<ruby>公開<rt>こうかい</rt></ruby>しない",
-    "<ruby>急<rt>いそ</rt></ruby>いで<ruby>公開<rt>こうかい</rt></ruby>する",
+    "<ruby>先生<rt>せんせい</rt></ruby>や<ruby>家族<rt>かぞく</rt></ruby>に<ruby>相談<rt>そうだん</rt></ruby>する",
     "<ruby>自分<rt>じぶん</rt></ruby>だけで<ruby>決<rt>き</rt></ruby>める"
   ]],
   ["<ruby>公開<rt>こうかい</rt></ruby>する<ruby>前<rt>まえ</rt></ruby>に？",[
@@ -181,10 +182,11 @@ function showCard(){
   document.getElementById("count").textContent=(now+1)+" / "+cards.length;
   document.getElementById("pic").textContent=cards[now][0];
   document.getElementById("text").innerHTML=cards[now][1];
-  document.getElementById("selected").innerHTML=
+
+  document.getElementById("selected").innerHTML =
     answers[now]==="未選択"
       ? "まだ<ruby>選<rt>えら</rt></ruby>んでいません"
-      : "<ruby>選<rt>えら</rt></ruby>んだもの： "+answers[now];
+      : "<ruby>選<rt>えら</rt></ruby>んだもの： " + answers[now];
 }
 
 function answer(a){
@@ -204,6 +206,7 @@ function nextCard(){
 function showSummary(){
   document.getElementById("gameScreen").style.display="none";
   document.getElementById("summary").style.display="block";
+
   let html="";
   cards.forEach((c,i)=>{
     html+=`・${stripRuby(c[1])} → <b>${answers[i]}</b><br>`;
@@ -214,8 +217,10 @@ function showSummary(){
 function showRuleScreen(){
   document.getElementById("summary").style.display="none";
   document.getElementById("ruleScreen").style.display="block";
+
   const area=document.getElementById("ruleQuestions");
   area.innerHTML="";
+
   rules.forEach((r,i)=>{
     let html=`<div class="ruleBox"><h2>${i+1}. ${r[0]}</h2>`;
     r[1].forEach(choice=>{
@@ -227,11 +232,16 @@ function showRuleScreen(){
 }
 
 function showMyRule(){
-  let html="<b>わたしの<ruby>自分<rt>じぶん</rt></ruby>ルール</b><br>";
+  let html="<b>わたしの<ruby>自分<rt>じぶん</rt></ruby>ルール</b><br>（SNSにのせるまえの<ruby>約束<rt>やくそく</rt></ruby>）<br><br>";
+
   rules.forEach((r,i)=>{
     const checked=document.querySelector(`input[name="rule${i}"]:checked`);
-    html+="・"+(checked ? checked.value : "まだ<ruby>選<rt>えら</rt></ruby>んでいません")+"<br>";
+
+    // 問題文＋答えをセット表示
+    html += "・" + stripRuby(r[0]) + "<br>";
+    html += "　→ " + (checked ? checked.value : "まだ<ruby>選<rt>えら</rt></ruby>んでいません") + "<br><br>";
   });
+
   document.getElementById("myRule").innerHTML=html;
 }
 
